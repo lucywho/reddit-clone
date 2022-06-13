@@ -11,6 +11,7 @@ body {
     --main-contrast: #c4421a;
     --light-main: #97cecc;
     --light-contrast: #fed79e;
+    --super-light-contrast: #fed79e50;
 }
 
 a {
@@ -38,7 +39,30 @@ a {
 }
 
 .title {
+    font-family: "Leckerli One", cursive;
+    font-size: 4rem;
     color: var(--main-contrast);
+    text-align: center;
+    margin: 0;
+}
+
+.tagline {
+    font-family: "Leckerli One", cursive;
+    font-size: 2rem;
+    color: var(--main-color);
+    text-align: center;
+    margin: 0;
+}
+
+.contentbox {
+    display: flex;
+    flex-direction: column;
+    border: 5px solid var(--main-contrast);
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--super-light-contrast);
+    color: var(--main-color);
+    margin: 20px 10px;
 }
 
 @tailwind base;

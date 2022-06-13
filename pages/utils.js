@@ -37,8 +37,8 @@ export default function Utils() {
     )
 
     return (
-        <div className="mt-10 ml-20 title">
-            <h2 className="mb-10 text-xl font-bold">Utils</h2>
+        <div className="mt-10 ml-20 ">
+            <h2 className="title">Utils</h2>
 
             {tasks.map((task, index) => (
                 <Button key={index} task={task} />
