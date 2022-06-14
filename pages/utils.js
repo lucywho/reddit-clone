@@ -18,7 +18,7 @@ export default function Utils() {
     const Button = ({ task }) => (
         <div className="flex-1 mb-5">
             <button
-                className="utilsbut"
+                className="button"
                 onClick={async () => {
                     await fetch("/api/utils", {
                         body: JSON.stringify({
