@@ -28,14 +28,14 @@ export default function NewComment({ post }) {
             }}
         >
             <textarea
-                className="input mx-2 p-5"
+                className="input mx-10 p-5"
                 rows={1}
                 cols={50}
                 placeholder="Add a comment"
                 onChange={(e) => setContent(e.target.value)}
             />
-            <div className="mt-5 ml-5">
-                <button className="button">Comment</button>
+            <div className="mt-5 ml-10">
+                <button className="button p-3">Comment</button>
             </div>
         </form>
     )
