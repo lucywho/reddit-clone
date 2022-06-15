@@ -1,10 +1,11 @@
 import Head from "next/head"
 import Link from "next/link"
-import { getPosts } from "lib/data.js"
-import prisma from "lib/prisma"
-import Posts from "components/Posts"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
+import prisma from "lib/prisma"
+import { getPosts } from "lib/data.js"
+import Posts from "components/Posts"
+import Loading from "components/Loading"
 
 export default function Home({ posts }) {
     const { data: session, status } = useSession()
@@ -12,7 +13,7 @@ export default function Home({ posts }) {
     const loading = status === "loading"
 
     if (loading) {
-        return <p className="p-10 text-teal-800">...loading</p>
+        return <Loading />
     }
 
     if (session && !session.user.name) {

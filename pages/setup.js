@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useRouter } from "next/router"
 import { useSession } from "next-auth/react"
+import Loading from "components/Loading"
 
 export default function Setup() {
     const router = useRouter()
@@ -9,7 +10,7 @@ export default function Setup() {
 
     const [name, setName] = useState("")
 
-    if (loading) return <p className="p-10 text-teal-800">...loading</p>
+    if (loading) return <Loading />
 
     if (!session || !session.user) {
         router.push("/")
@@ -39,7 +40,7 @@ export default function Setup() {
             }}
         >
             <div className="flex-1 p-5">
-                <div className="flex-1 mb-5 text-teal-900 font-bold">
+                <div className="flex-1 mb-5 main-color font-bold">
                     Choose a username
                 </div>
                 <input
@@ -52,7 +53,7 @@ export default function Setup() {
                     pattern="\w*"
                     title="Numbers or letters or _ only"
                     placeholder="Numbers or letters or _ only"
-                    minlength="5"
+                    minLength="5"
                 />
             </div>
 
