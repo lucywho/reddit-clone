@@ -1,17 +1,35 @@
+import Link from "next/link"
 import timeago from "lib/timeago"
 
 export default function Post({ post }) {
     return (
         <div className="contentbox">
-            <div className="flex items-center text-gray-800">
-                /r/{post.subredditName} Posted by {post.author.name}{" "}
-                {timeago.format(new Date(post.createdAt))}
+            <div className="flex items-center main-contrast">
+                <Link href={`/r/${post.subredditName}`}>
+                    <span className="cursor-pointer hover:underline pr-2 font-bold">
+                        /r/{post.subredditName}{" "}
+                    </span>
+                </Link>
+                Posted by {post.author.name}{" "}
+                <Link
+                    href={`/r/${post.subredditName}/comments/${post.id}`}
+                    className="cursor-pointer hover:underline "
+                >
+                    <span className="ml-2">
+                        {timeago.format(new Date(post.createdAt))}
+                    </span>
+                </Link>
             </div>
 
             <div>
-                <p className="flex-shrink text-2xl font-bold mt-2 ">
-                    {post.title}
-                </p>
+                <Link
+                    href={`/r/${post.subredditName}/comments/${post.id}`}
+                    className="cursor-pointer hover:underline "
+                >
+                    <p className="flex-shrink text-2xl font-bold mt-2 ">
+                        {post.title}
+                    </p>
+                </Link>
                 <p className="flex-shrink text-base font-normal width-auto mt-2">
                     {post.content}
                 </p>
