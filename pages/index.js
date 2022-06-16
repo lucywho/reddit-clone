@@ -27,18 +27,21 @@ export default function Home({ posts }) {
                 <meta name="description" content="Like Reddit but Worse!" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <div className="strapline">
+                <span className=" font-extrabold text-lg">
+                    {session
+                        ? "thanks for skimming today!"
+                        : "log in to join in!"}
+                </span>
+                <Link href={session ? "/api/auth/signout" : "api/auth/signin"}>
+                    <button className="strapline-link">
+                        {session ? "logout" : "login"}
+                    </button>
+                </Link>
+            </div>
             <header>
                 <h1 className="title">Skimmdit</h1>
                 <p className="tagline">Like Reddit but Worse!</p>
-                <div className="strapline">
-                    <Link
-                        href={session ? "/api/auth/signout" : "api/auth/signin"}
-                    >
-                        <button className="button">
-                            {session ? "logout" : "login"}
-                        </button>
-                    </Link>
-                </div>
             </header>
             <Posts posts={posts} />
         </>

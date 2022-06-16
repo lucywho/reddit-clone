@@ -1,36 +1,71 @@
 import Link from "next/link"
-
+import { useSession } from "next-auth/react"
 import prisma from "lib/prisma"
 import { getSubreddit, getPostsFromSubreddit } from "lib/data.js"
-
+import Loading from "components/Loading"
 import Posts from "components/Posts"
 
 export default function Subreddit({ subreddit, posts }) {
+    const { data: session, status } = useSession()
+    const loading = status === "loading"
+
+    if (loading) {
+        return <Loading />
+    }
+
     if (!subreddit) {
         return (
             <>
-                <p className="p-10 main-contrast font-bold">
-                    This subreddit does not exist
+                <p className="strapline">
+                    {" "}
+                    <span className=" font-extrabold text-lg">
+                        this subskimmdit does not exist
+                    </span>
+                    <Link href={`/`}>
+                        <button className=" strapline-link">
+                            {" "}
+                            back to the homepage
+                        </button>
+                    </Link>
+                    <Link
+                        href={session ? "/api/auth/signout" : "api/auth/signin"}
+                    >
+                        <button className="strapline-link">
+                            {session ? "logout" : "login"}
+                        </button>
+                    </Link>
                 </p>
-                <Link href={`/`}>
-                    <button className="button ml-10 p-3">
-                        {" "}
-                        back to the homepage
-                    </button>
-                </Link>
             </>
         )
     }
 
     return (
         <>
+            <p className="strapline">
+                {" "}
+                <span className="text-lg font-bold">
+                    {subreddit.description}
+                </span>
+                <Link href={`/r/${subreddit.name}/submit`}>
+                    <button className="strapline-link">
+                        {" "}
+                        create a new post
+                    </button>
+                </Link>
+                <Link href={`/`}>
+                    <button className="strapline-link">
+                        {" "}
+                        back to the homepage
+                    </button>
+                </Link>
+                <Link href={session ? "/api/auth/signout" : "api/auth/signin"}>
+                    <button className="strapline-link">
+                        {session ? "logout" : "login"}
+                    </button>
+                </Link>
+            </p>
             <p className="title">/r/{subreddit.name}</p>
-            <Link href={`/`}>
-                <button className="button ml-10 p-3">
-                    {" "}
-                    back to the homepage
-                </button>
-            </Link>
+
             <Posts posts={posts} />
         </>
     )

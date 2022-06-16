@@ -69,11 +69,13 @@ input,
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+
+    justify-content: space-between;
+    min-height: 60px;
     width: 100%;
+    padding: 0 10px;
     background-color: var(--main-color);
     color: var(--light-contrast);
-    min-height: 40px;
 }
 
 .button {
@@ -83,12 +85,21 @@ input,
     background-color: var(--main-color);
     color: var(--light-contrast);
     border: 1px solid var(--main-color);
+    font-weight: bold;
 }
 
 .button:hover {
     background-color: var(--light-main);
     color: var(--main-color);
     border-width: 2px;
+}
+
+.strapline-link {
+    color: var(--main-color);
+    background-color: var(--light-main);
+    border-radius: 20px;
+    margin: 2px 0;
+    padding: 0.25rem 0.5rem;
 }
 
 .title {

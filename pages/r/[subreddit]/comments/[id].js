@@ -36,34 +36,54 @@ export default function Post({ subreddit, post, votes, vote }) {
     if (!post) {
         return (
             <>
-                <p className="p-10 main-contrast font-bold">
-                    This post does not exist
+                <p className="strapline">
+                    {" "}
+                    <span className=" font-extrabold text-lg">
+                        this post does not exist
+                    </span>
+                    <Link href={`/`}>
+                        <button className=" strapline-link">
+                            {" "}
+                            back to the homepage
+                        </button>
+                    </Link>
+                    <Link
+                        href={session ? "/api/auth/signout" : "api/auth/signin"}
+                    >
+                        <button className="strapline-link">
+                            {session ? "logout" : "login"}
+                        </button>
+                    </Link>
                 </p>
-                <Link href={`/`}>
-                    <button className="button ml-10 p-3">
-                        back to the homepage
-                    </button>
-                </Link>
             </>
         )
     }
 
     return (
         <>
-            <div className="flex flex-row mt-10">
-                <Link href={`/`}>
-                    <button className="button ml-10 p-3">
-                        back to the homepage
-                    </button>
-                </Link>
+            <p className="strapline">
+                {" "}
+                <span className="text-lg font-bold">{post.title}</span>
                 <Link href={`/r/${subreddit.name}`}>
-                    <button className="button ml-3 p-3">
+                    <button className="strapline-link">
                         back to /{subreddit.name}
                     </button>
                 </Link>
-            </div>
+                <Link href={`/`}>
+                    <button className="strapline-link">
+                        {" "}
+                        back to the homepage
+                    </button>
+                </Link>
+                <Link href={session ? "/api/auth/signout" : "api/auth/signin"}>
+                    <button className="strapline-link">
+                        {session ? "logout" : "login"}
+                    </button>
+                </Link>
+            </p>
+            <div className="flex flex-row mt-10"></div>
 
-            <div className="border-2 border-sky-700 flex flex-row  items-center ">
+            <div className=" flex flex-row  items-center ">
                 <div className=" h-auto w-6 flex flex-col justify-around items-center ml-10">
                     <div
                         className="cursor-pointer text-4xl main-color"
