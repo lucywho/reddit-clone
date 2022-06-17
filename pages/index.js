@@ -28,16 +28,22 @@ export default function Home({ posts }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div className="strapline">
-                <span className=" font-extrabold text-lg">
-                    {session
-                        ? "thanks for skimming today!"
-                        : "log in to join in!"}
-                </span>
-                <Link href={session ? "/api/auth/signout" : "api/auth/signin"}>
-                    <button className="strapline-link">
-                        {session ? "logout" : "login"}
-                    </button>
-                </Link>
+                <div className="strap-left">
+                    <span className=" font-extrabold text-lg">
+                        {session
+                            ? "thanks for skimming today!"
+                            : "log in to join in!"}
+                    </span>
+                </div>
+                <div className="strap-right">
+                    <Link
+                        href={session ? "/api/auth/signout" : "api/auth/signin"}
+                    >
+                        <button className="strapline-link">
+                            {session ? "logout" : "login"}
+                        </button>
+                    </Link>
+                </div>
             </div>
             <header>
                 <h1 className="title">Skimmdit</h1>

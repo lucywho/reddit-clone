@@ -28,23 +28,31 @@ export default function NewPost({ subreddit }) {
         return (
             <>
                 <p className="strapline">
-                    {" "}
-                    <span className=" font-extrabold text-lg">
-                        you must be logged in to post
-                    </span>
-                    <Link href={`/`}>
-                        <button className=" ml-10 strapline-link">
-                            {" "}
-                            back to the homepage
-                        </button>
-                    </Link>
-                    <Link
-                        href={session ? "/api/auth/signout" : "api/auth/signin"}
-                    >
-                        <button className="strapline-link">
-                            {session ? "logout" : "login"}
-                        </button>
-                    </Link>
+                    <div className="strap-left">
+                        {" "}
+                        <span className=" font-extrabold text-lg">
+                            you must be logged in to post
+                        </span>
+                    </div>
+                    <div className="strap-right">
+                        <Link href={`/`}>
+                            <button className=" ml-10 strapline-link">
+                                {" "}
+                                back to the homepage
+                            </button>
+                        </Link>
+                        <Link
+                            href={
+                                session
+                                    ? "/api/auth/signout"
+                                    : "api/auth/signin"
+                            }
+                        >
+                            <button className="strapline-link">
+                                {session ? "logout" : "login"}
+                            </button>
+                        </Link>
+                    </div>
                 </p>
             </>
         )
@@ -54,11 +62,46 @@ export default function NewPost({ subreddit }) {
             <>
                 <p className="strapline">
                     {" "}
+                    <div className="strap-left">
+                        <span className=" font-extrabold text-lg">
+                            this subskimmdit does not exist
+                        </span>
+                    </div>
+                    <div className="strap-right">
+                        <Link href={`/`}>
+                            <button className=" ml-10 strapline-link">
+                                {" "}
+                                back to the homepage
+                            </button>
+                        </Link>
+                        <Link
+                            href={
+                                session
+                                    ? "/api/auth/signout"
+                                    : "api/auth/signin"
+                            }
+                        >
+                            <button className="strapline-link">
+                                {session ? "logout" : "login"}
+                            </button>
+                        </Link>
+                    </div>
+                </p>
+            </>
+        )
+    }
+
+    return (
+        <>
+            <p className="strapline">
+                <div className="strap-left">
                     <span className=" font-extrabold text-lg">
-                        this subskimmdit does not exist
+                        {subreddit.description}
                     </span>
+                </div>
+                <div className="strap-right">
                     <Link href={`/`}>
-                        <button className=" ml-10 strapline-link">
+                        <button className="strapline-link">
                             {" "}
                             back to the homepage
                         </button>
@@ -70,29 +113,7 @@ export default function NewPost({ subreddit }) {
                             {session ? "logout" : "login"}
                         </button>
                     </Link>
-                </p>
-            </>
-        )
-    }
-
-    return (
-        <>
-            <p className="strapline">
-                {" "}
-                <span className=" font-extrabold text-lg">
-                    {subreddit.description}
-                </span>
-                <Link href={`/`}>
-                    <button className="strapline-link">
-                        {" "}
-                        back to the homepage
-                    </button>
-                </Link>
-                <Link href={session ? "/api/auth/signout" : "api/auth/signin"}>
-                    <button className="strapline-link">
-                        {session ? "logout" : "login"}
-                    </button>
-                </Link>
+                </div>
             </p>
             <p className="title">/r/{subreddit.name}</p>
 

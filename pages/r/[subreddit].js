@@ -20,11 +20,50 @@ export default function Subreddit({ subreddit, posts }) {
             <>
                 <p className="strapline">
                     {" "}
-                    <span className=" font-extrabold text-lg">
-                        this subskimmdit does not exist
+                    <div className="strap-left">
+                        <span className=" font-extrabold text-lg">
+                            this subskimmdit does not exist
+                        </span>
+                    </div>
+                    <div className="strap-right">
+                        <Link href={`/`}>
+                            <button className=" strapline-link">
+                                {" "}
+                                back to the homepage
+                            </button>
+                        </Link>
+                        <Link
+                            href={
+                                session
+                                    ? "/api/auth/signout"
+                                    : "api/auth/signin"
+                            }
+                        >
+                            <button className="strapline-link">
+                                {session ? "logout" : "login"}
+                            </button>
+                        </Link>
+                    </div>
+                </p>
+            </>
+        )
+    }
+
+    return (
+        <>
+            <p className="strapline">
+                {" "}
+                <div className="strap-left">
+                    <span className="text-lg font-bold">
+                        {subreddit.description}
                     </span>
+                </div>
+                <div className="strap-right">
+                    <Link href={`/r/${subreddit.name}/submit`}>
+                        <button className="strapline-link"> create post</button>
+                    </Link>
                     <Link href={`/`}>
-                        <button className=" strapline-link">
+                        <button className="strapline-link">
                             {" "}
                             back to the homepage
                         </button>
@@ -36,46 +75,20 @@ export default function Subreddit({ subreddit, posts }) {
                             {session ? "logout" : "login"}
                         </button>
                     </Link>
-                </p>
-            </>
-        )
-    }
-
-    return (
-        <>
-            <p className="strapline">
-                {" "}
-                <span className="text-lg font-bold">
-                    {subreddit.description}
-                </span>
-                <Link href={`/r/${subreddit.name}/submit`}>
-                    <button className="strapline-link"> create post</button>
-                </Link>
-                <Link href={`/`}>
-                    <button className="strapline-link">
-                        {" "}
-                        back to the homepage
-                    </button>
-                </Link>
-                <Link href={session ? "/api/auth/signout" : "api/auth/signin"}>
-                    <button className="strapline-link">
-                        {session ? "logout" : "login"}
-                    </button>
-                </Link>
+                </div>
             </p>
             <p className="title">/r/{subreddit.name}</p>
             {/* ToDo: not sure I like this feature, button better? */}
             {session && (
-
-            <div className="mx-2 h-12 ">
-                <input
-                    placeholder="create a new post"
-                    className="input w-full min-h-full"
-                    onClick={() => {
-                        router.push(`/r/${subreddit.name}/submit`)
-                    }}
-                ></input>
-            </div>
+                <div className="mx-2 h-12 ">
+                    <input
+                        placeholder="create a new post"
+                        className="input w-full min-h-full"
+                        onClick={() => {
+                            router.push(`/r/${subreddit.name}/submit`)
+                        }}
+                    ></input>
+                </div>
             )}
             <Posts posts={posts} />
         </>

@@ -38,11 +38,49 @@ export default function Post({ subreddit, post, votes, vote }) {
             <>
                 <p className="strapline">
                     {" "}
-                    <span className=" font-extrabold text-lg">
-                        this post does not exist
-                    </span>
+                    <div className="strap-left">
+                        <span className=" font-extrabold text-lg">
+                            this post does not exist
+                        </span>
+                    </div>
+                    <div className="strap-right">
+                        <Link href={`/`}>
+                            <button className=" strapline-link">
+                                {" "}
+                                back to the homepage
+                            </button>
+                        </Link>
+                        <Link
+                            href={
+                                session
+                                    ? "/api/auth/signout"
+                                    : "api/auth/signin"
+                            }
+                        >
+                            <button className="strapline-link">
+                                {session ? "logout" : "login"}
+                            </button>
+                        </Link>
+                    </div>
+                </p>
+            </>
+        )
+    }
+
+    return (
+        <>
+            <p className="strapline">
+                <div className="strap-left">
+                    <span className="text-lg font-bold">{post.title}</span>
+                </div>
+                <div className="strap-right">
+                    <Link href={`/r/${subreddit.name}`}>
+                        <button className="strapline-link">
+                            back to /{subreddit.name}
+                        </button>
+                    </Link>
                     <Link href={`/`}>
-                        <button className=" strapline-link">
+                        <button className="strapline-link">
                             {" "}
                             back to the homepage
                         </button>
@@ -54,32 +92,7 @@ export default function Post({ subreddit, post, votes, vote }) {
                             {session ? "logout" : "login"}
                         </button>
                     </Link>
-                </p>
-            </>
-        )
-    }
-
-    return (
-        <>
-            <p className="strapline">
-                {" "}
-                <span className="text-lg font-bold">{post.title}</span>
-                <Link href={`/r/${subreddit.name}`}>
-                    <button className="strapline-link">
-                        back to /{subreddit.name}
-                    </button>
-                </Link>
-                <Link href={`/`}>
-                    <button className="strapline-link">
-                        {" "}
-                        back to the homepage
-                    </button>
-                </Link>
-                <Link href={session ? "/api/auth/signout" : "api/auth/signin"}>
-                    <button className="strapline-link">
-                        {session ? "logout" : "login"}
-                    </button>
-                </Link>
+                </div>
             </p>
             <div className="flex flex-row mt-10"></div>
 
