@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import Link from "next/link"
+import Image from "next/image"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
 import { getSubreddit } from "lib/data.js"
@@ -12,6 +13,8 @@ export default function NewPost({ subreddit }) {
     const loading = status === "loading"
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
+    const [image, setImage] = useState(null)
+    const [imageURL, setImageURL] = useState(null)
 
     if (loading) {
         return <Loading />
@@ -97,24 +100,25 @@ export default function NewPost({ subreddit }) {
                 className="flex flex-col mt-10"
                 onSubmit={async (e) => {
                     e.preventDefault()
+
                     if (!title) {
                         alert("Enter a title")
                         return
                     }
-                    if (!content) {
+
+                    if (!content && !image) {
                         alert("Enter some text")
                         return
                     }
 
+                    const body = new FormData()
+                    body.append("image", image)
+                    body.append("title", title)
+                    body.append("content", content)
+                    body.append("subreddit_name", subreddit.name)
+
                     const res = await fetch("/api/post", {
-                        body: JSON.stringify({
-                            title,
-                            content,
-                            subreddit_name: subreddit.name,
-                        }),
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
+                        body,
                         method: "POST",
                     })
                     router.push(`/r/${subreddit.name}`)
@@ -135,7 +139,29 @@ export default function NewPost({ subreddit }) {
                     placeholder="Add content"
                     onChange={(e) => setContent(e.target.value)}
                 />
-                <div className="mt-5 ml-10">
+                <label className="button mx-10 mt-3 px-6 py-3 max-w-fit">
+                    {!imageURL && <p>Upload an image</p>}
+                    <img src={imageURL} />
+                    <input
+                        name="image"
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(event) => {
+                            if (event.target.files && event.target.files[0]) {
+                                if (event.target.files[0].size > 3072000) {
+                                    alert("Maximum file size is 3MB")
+                                    return false
+                                }
+                                setImage(event.target.files[0])
+                                setImageURL(
+                                    URL.createObjectURL(event.target.files[0])
+                                )
+                            }
+                        }}
+                    />
+                </label>
+                <div className="mt-3 ml-10">
                     <button className="button px-6 py-3">Post</button>
                 </div>
             </form>

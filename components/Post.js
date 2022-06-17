@@ -1,5 +1,6 @@
 import Link from "next/link"
 import timeago from "lib/timeago"
+import Image from "next/image"
 
 export default function Post({ post }) {
     return (
@@ -30,6 +31,13 @@ export default function Post({ post }) {
                         {post.title}
                     </p>
                 </Link>
+                {post.image && (
+                    <Image
+                        className="flex-shrink text-base w-auto"
+                        src={post.image}
+                        alt="user uploaded image"
+                    />
+                )}
                 <p className="flex-shrink text-base font-normal width-auto mt-2">
                     {post.content}
                 </p>
