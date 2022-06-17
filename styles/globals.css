@@ -23,6 +23,10 @@ a {
     box-sizing: border-box;
 }
 
+img {
+    max-height: 150px;
+}
+
 input,
 .input {
     border: 2px solid var(--main-contrast);
@@ -62,7 +66,7 @@ input,
     color: var(--light-contrast);
 }
 
-.super-light-contrast, {
+.super-light-contrast {
     color: var(--super-light-contrast);
 }
 .super-light-contrast-bg {

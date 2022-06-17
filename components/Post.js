@@ -32,7 +32,7 @@ export default function Post({ post }) {
                     </p>
                 </Link>
                 {post.image && (
-                    <Image
+                    <img
                         className="flex-shrink text-base w-auto"
                         src={post.image}
                         alt="user uploaded image"
