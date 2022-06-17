@@ -1,13 +1,18 @@
 import timeago from "lib/timeago"
-import { useState } from 'react'
+import { useState } from "react"
 import NewComment from "components/NewComment"
+import Link from "next/link"
 
 const Comment = ({ comment, post }) => {
     const [showReply, setShowReply] = useState(false)
     return (
         <div className="comment">
             <p className="font-bold">
-                {comment.author.name}{" "}
+                <Link href={`/u/${comment.author.name}`}>
+                    <span className="hover:underline">
+                        {comment.author.name}{" "}
+                    </span>
+                </Link>
                 <span className="font-thin ">
                     {timeago.format(new Date(comment.createdAt))}
                 </span>
@@ -16,10 +21,13 @@ const Comment = ({ comment, post }) => {
             {showReply ? (
                 <NewComment comment={comment} post={post} />
             ) : (
-            <p className='hover:underline text-sm main-contrast bg-gradient-to-r from-transparent to-orange-50 rounded-full px-4 cursor-pointer text-right font-bold'
-            onClick={() => setShowReply(true)}>
-            reply
-            </p>)}
+                <p
+                    className="hover:underline text-sm main-contrast bg-gradient-to-r from-transparent to-orange-50 rounded-full px-4 cursor-pointer text-right font-bold"
+                    onClick={() => setShowReply(true)}
+                >
+                    reply
+                </p>
+            )}
         </div>
     )
 }
@@ -39,11 +47,15 @@ export default function Comments({ comments, post }) {
             <div>
                 {comments.map((comment, index) => (
                     <>
-                    <Comment key={index} comment={comment} post={post} />
-                    {comment.comments && (
-                        <div className="ml-4">
-                        <Comments comments={comment.comments} post={post}/></div>
-                    )}
+                        <Comment key={index} comment={comment} post={post} />
+                        {comment.comments && (
+                            <div className="ml-4">
+                                <Comments
+                                    comments={comment.comments}
+                                    post={post}
+                                />
+                            </div>
+                        )}
                     </>
                 ))}
             </div>

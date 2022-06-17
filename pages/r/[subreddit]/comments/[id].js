@@ -109,7 +109,11 @@ export default function Post({ subreddit, post, votes, vote }) {
                 </div>
                 <div className="contentbox mx-10 w-full">
                     <div className="flex items-center main-contrast">
-                        Posted by {post.author.name}{" "}
+                        <Link href={`/u/${post.author.name}`}>
+                            <span className="hover:underline">
+                                Posted by {post.author.name}{" "}
+                            </span>
+                        </Link>
                         {timeago.format(new Date(post.createdAt))}
                     </div>
 

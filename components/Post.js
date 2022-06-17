@@ -11,7 +11,12 @@ export default function Post({ post }) {
                         /r/{post.subredditName}{" "}
                     </span>
                 </Link>
-                Posted by {post.author.name}{" "}
+                <Link href={`/u/${post.author.name}`}>
+                    <span className="hover:underline">
+                        Posted by {post.author.name}{" "}
+                    </span>
+                </Link>
+
                 <Link
                     href={`/r/${post.subredditName}/comments/${post.id}`}
                     className="cursor-pointer hover:underline "
