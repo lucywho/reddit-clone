@@ -1,5 +1,10 @@
 import prisma from "lib/prisma"
 import { getSession } from "next-auth/react"
+import middleware from 'middleware/middleware'
+import nextConnect from 'next-connect'
+
+const handler = nextConnect()
+handler.use(middleware)
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {

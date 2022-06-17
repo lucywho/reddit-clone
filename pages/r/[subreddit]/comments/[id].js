@@ -123,7 +123,7 @@ export default function Post({ subreddit, post, votes, vote }) {
                     </div>
                 </div>
             </div>
-            <Comments comments={post.comments} />
+            <Comments comments={post.comments} post={post} />
 
             {session ? (
                 <NewComment post={post} />

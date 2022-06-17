@@ -1,6 +1,9 @@
 import timeago from "lib/timeago"
+import { useState } from 'react'
+import NewComment from "components/NewComment"
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, post }) => {
+    const [showReply, setShowReply] = useState(false)
     return (
         <div className="comment">
             <p className="font-bold">
@@ -10,11 +13,18 @@ const Comment = ({ comment }) => {
                 </span>
             </p>
             <p>{comment.content}</p>
+            {showReply ? (
+                <NewComment comment={comment} post={post} />
+            ) : (
+            <p className='hover:underline text-sm main-contrast bg-gradient-to-r from-transparent to-orange-50 rounded-full px-4 cursor-pointer text-right font-bold'
+            onClick={() => setShowReply(true)}>
+            reply
+            </p>)}
         </div>
     )
 }
 
-export default function Comments({ comments }) {
+export default function Comments({ comments, post }) {
     if (!comments)
         return (
             <>
@@ -28,7 +38,13 @@ export default function Comments({ comments }) {
         <>
             <div>
                 {comments.map((comment, index) => (
-                    <Comment key={index} comment={comment} />
+                    <>
+                    <Comment key={index} comment={comment} post={post} />
+                    {comment.comments && (
+                        <div className="ml-4">
+                        <Comments comments={comment.comments} post={post}/></div>
+                    )}
+                    </>
                 ))}
             </div>
         </>

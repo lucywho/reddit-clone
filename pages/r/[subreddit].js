@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useSession } from "next-auth/react"
 import prisma from "lib/prisma"
 import { getSubreddit, getPostsFromSubreddit } from "lib/data.js"
@@ -6,6 +7,7 @@ import Loading from "components/Loading"
 import Posts from "components/Posts"
 
 export default function Subreddit({ subreddit, posts }) {
+    const router = useRouter()
     const { data: session, status } = useSession()
     const loading = status === "loading"
 
@@ -47,10 +49,7 @@ export default function Subreddit({ subreddit, posts }) {
                     {subreddit.description}
                 </span>
                 <Link href={`/r/${subreddit.name}/submit`}>
-                    <button className="strapline-link">
-                        {" "}
-                        create a new post
-                    </button>
+                    <button className="strapline-link"> create post</button>
                 </Link>
                 <Link href={`/`}>
                     <button className="strapline-link">
@@ -65,7 +64,19 @@ export default function Subreddit({ subreddit, posts }) {
                 </Link>
             </p>
             <p className="title">/r/{subreddit.name}</p>
+            {/* ToDo: not sure I like this feature, button better? */}
+            {session && (
 
+            <div className="mx-2 h-12 ">
+                <input
+                    placeholder="create a new post"
+                    className="input w-full min-h-full"
+                    onClick={() => {
+                        router.push(`/r/${subreddit.name}/submit`)
+                    }}
+                ></input>
+            </div>
+            )}
             <Posts posts={posts} />
         </>
     )
