@@ -18,6 +18,7 @@ export default function Home({ posts }) {
 
     if (session && !session.user.name) {
         router.push("/setup")
+        return null
     }
 
     return (

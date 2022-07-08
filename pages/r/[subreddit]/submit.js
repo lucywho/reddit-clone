@@ -22,6 +22,7 @@ export default function NewPost({ subreddit }) {
 
     if (session && !session.user.name) {
         router.push("/setup")
+        return null
     }
 
     if (!session)

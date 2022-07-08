@@ -19,6 +19,7 @@ export default function Setup() {
 
     if (!loading && session && session.user.name) {
         router.push("/")
+        return null
     }
 
     return (
